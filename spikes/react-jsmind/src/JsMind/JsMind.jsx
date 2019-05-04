@@ -10,6 +10,11 @@ class JsMind extends React.Component {
 
         this.id = `jsmind-${jsMind.util.uuid.newid()}`
         this.el = React.createRef()
+
+        this.state = {
+            scrollTop: 0,
+            scrollLeft: 0,
+        }
     }
 
     componentDidMount () {
@@ -27,21 +32,51 @@ class JsMind extends React.Component {
                 }
             }
         }, {
-            meta: this.props.meta,
             format: this.props.format,
+            meta: this.props.meta,
             data: ensureRoot(this.props.data),
         })
 
         this.startObserveChanges()
+
+        setInterval(() => {
+            try {
+                const innerEl = this.el.current.querySelector('div')
+                this.setState({
+                    scrollTop: innerEl.scrollTop,
+                    scrollLeft: innerEl.scrollLeft,
+                })
+            } catch (err) {}
+        }, 1000)
     }
 
     componentWillUnmount () {
-        clearInterval(this._observeChangesTimer)
+        this.stopObserveChanges()
     }
 
-    shouldComponentUpdate () {
-        console.log('new props')
-        return false
+    shouldComponentUpdate (nextProps) {
+        const { format } = this.props
+        const currentMap = this.map.get_data(format)
+        
+        if (!deepEqual(currentMap.data, nextProps.data)) {
+            this.replaceMapData({
+                ...currentMap,
+                data: nextProps.data,
+            })
+        }
+
+        return true
+    }
+
+    replaceMapData (data) {
+        this.stopObserveChanges()
+        this.map.show(data)
+        try {
+            const innerEl = this.el.current.querySelector('div')
+            innerEl.scrollTop = this.state.scrollTop
+            innerEl.scrollLeft = this.state.scrollLeft
+        } catch (err) {}
+        this.startObserveChanges()
     }
 
     startObserveChanges () {
@@ -54,9 +89,13 @@ class JsMind extends React.Component {
         let oldVal = this.map.get_data(format)
         this._observeChangesTimer = setInterval(() => {
             const newVal = this.map.get_data(format)
-            deepEqual(oldVal, newVal) === false && onChange(newVal, oldVal)
+            deepEqual(oldVal, newVal) === false && onChange(newVal.data, oldVal.data)
             oldVal = newVal
         }, onChangeInterval)
+    }
+
+    stopObserveChanges () {
+        clearInterval(this._observeChangesTimer)
     }
 
     render () {
@@ -78,13 +117,17 @@ class JsMind extends React.Component {
 }
 
 JsMind.propTypes = {
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
+    width: PropTypes.number,
+    height: PropTypes.number,
     onChange: PropTypes.func,
     onChangeInterval: PropTypes.number,
 }
 
 JsMind.defaultProps = {
+    width: 0,
+    height: 0,
+    meta: {},
+    format: 'node_array',
     onChange: null,
     onChangeInterval: 100,
 }

@@ -1,50 +1,44 @@
 /* global localStorage */
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import JsMind from './JsMind'
 
-const mind = {
-    "meta":{
-        "name":"demo",
-        "author":"hizzgdev@163.com",
-        "version":"0.2",
-    },
-    "format":"node_array",
-    "data": [],
-}
-
 const App = () => {
-    let data = []
-    try {
-        data = JSON.parse(localStorage.getItem('jsmap'))
-    } catch (err) {
-        data = []
-    }
+    const [ data, setData ] = useState([])
+
+    useEffect(() => {
+        try {
+            const data = JSON.parse(localStorage.getItem('jsmap'))
+            data && setData(data)
+        } catch (err) {}
+    }, [ true ]) // eslint-disable-line
 
     return (
         <div className="App">
             <JsMind
                 width={600}
                 height={250}
-                meta={mind.meta}
-                format={mind.format}
+                name="map1"
+                theme="primary"
                 data={data}
                 editable={true}
-                theme="primary"
-                onChange={(val, old) => {
-                    localStorage.setItem('jsmap', JSON.stringify(val.data))
+                onChange={(data) => {
+                    console.log('onChange - map1', data)
+                    localStorage.setItem('jsmap', JSON.stringify(data))
+                    setData(data)
                 }}
             />
             <hr />
             <JsMind
                 width={600}
                 height={250}
-                meta={mind.meta}
-                format={mind.format}
+                name="map2"
+                theme="primary"
                 data={data}
                 editable={true}
-                theme="primary"
-                onChange={(val, old) => {
-                    localStorage.setItem('jsmap', JSON.stringify(val.data))
+                onChange={(data) => {
+                    console.log('onChange - map2', data)
+                    localStorage.setItem('jsmap', JSON.stringify(data))
+                    setData(data)
                 }}
             />
         </div>
