@@ -103,7 +103,6 @@ class JsMind extends React.Component {
             width: this.props.width,
             height: this.props.height,
             textAlign: 'left',
-            border: '1px solid black',
         }
 
         return (
