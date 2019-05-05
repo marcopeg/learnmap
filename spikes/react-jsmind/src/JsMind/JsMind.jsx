@@ -1,7 +1,8 @@
+/* global jsMind */
+
 import React from 'react'
 import PropTypes from 'prop-types'
 import deepEqual from 'deep-equal'
-import jsMind from './jsmind'
 import { ensureRoot } from './ensure-root'
 
 class JsMind extends React.Component {
@@ -37,8 +38,11 @@ class JsMind extends React.Component {
             data: ensureRoot(this.props.data),
         })
 
+        this.setMapZoom(this.props.zoom)
+
         this.startObserveChanges()
 
+        // @TODO: move to method
         setInterval(() => {
             try {
                 const innerEl = this.el.current.querySelector('div')
@@ -54,29 +58,57 @@ class JsMind extends React.Component {
         this.stopObserveChanges()
     }
 
-    shouldComponentUpdate (nextProps) {
+    // shouldComponentUpdate (nextProps) {
+    //     // const { format } = this.props
+    //     // const currentMap = this.map.get_data(format)
+        
+    //     // if (!deepEqual(currentMap.data, nextProps.data)) {
+    //     //     this.replaceMapData({
+    //     //         ...currentMap,
+    //     //         data: nextProps.data,
+    //     //     })
+    //     // }
+
+    //     return true
+    // }
+
+    componentDidUpdate (prevProps) {
         const { format } = this.props
         const currentMap = this.map.get_data(format)
         
-        if (!deepEqual(currentMap.data, nextProps.data)) {
+        // update data
+        if (!deepEqual(currentMap.data, this.props.data)) {
             this.replaceMapData({
                 ...currentMap,
-                data: nextProps.data,
+                data: this.props.data,
             })
         }
 
-        return true
+        // update zoom
+        if (this.props.zoom !== prevProps.zoom) {
+            this.setMapZoom(this.props.zoom)
+        }
     }
 
     replaceMapData (data) {
         this.stopObserveChanges()
-        this.map.show(data)
+        
+        try {
+            this.map.show(data)
+        } catch (err) {} // eslint-disable-line
+
         try {
             const innerEl = this.el.current.querySelector('div')
             innerEl.scrollTop = this.state.scrollTop
             innerEl.scrollLeft = this.state.scrollLeft
-        } catch (err) {}
+        } catch (err) {} // eslint-disable-line
+
         this.startObserveChanges()
+    }
+
+    setMapZoom (zoom) {
+        console.log(zoom)
+        this.map.view.setZoom(zoom)
     }
 
     startObserveChanges () {
@@ -118,6 +150,7 @@ class JsMind extends React.Component {
 JsMind.propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
+    zoom: PropTypes.number,
     onChange: PropTypes.func,
     onChangeInterval: PropTypes.number,
 }
@@ -125,6 +158,7 @@ JsMind.propTypes = {
 JsMind.defaultProps = {
     width: 0,
     height: 0,
+    zoom: 1,
     meta: {},
     format: 'node_array',
     onChange: null,

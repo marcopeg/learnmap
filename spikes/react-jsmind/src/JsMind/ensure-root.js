@@ -1,4 +1,4 @@
-import jsMind from './jsmind'
+/* global jsMind */
 
 export const ensureRoot = (originalData) => {
     const data = [...originalData]

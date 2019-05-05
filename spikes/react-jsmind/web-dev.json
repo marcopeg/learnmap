@@ -1,0 +1,121 @@
+[
+    {
+        "id": "jsmind-node-a8384d005af3dcb9",
+        "topic": "WebDev",
+        "expanded": true,
+        "isroot": true
+    },
+    {
+        "id": "a872257d81d76f33",
+        "topic": "History",
+        "expanded": true,
+        "parentid": "jsmind-node-a8384d005af3dcb9",
+        "direction": "right"
+    },
+    {
+        "id": "jsmind-node-a8384d00581eaa3b",
+        "topic": "Basics",
+        "expanded": false,
+        "parentid": "jsmind-node-a8384d005af3dcb9",
+        "direction": "right"
+    },
+    {
+        "id": "a870cca3e196d8bc",
+        "topic": "Editors / IDE",
+        "expanded": true,
+        "parentid": "jsmind-node-a8384d00581eaa3b"
+    },
+    {
+        "id": "a8386722dbdaad44",
+        "topic": "The Terminal",
+        "expanded": false,
+        "parentid": "jsmind-node-a8384d00581eaa3b"
+    },
+    {
+        "id": "a870e6a7b40e3b39",
+        "topic": "pwd / cd / ls",
+        "expanded": true,
+        "parentid": "a8386722dbdaad44"
+    },
+    {
+        "id": "a870e9b1f99dbce3",
+        "topic": "touch / mkdir / rm",
+        "expanded": true,
+        "parentid": "a8386722dbdaad44"
+    },
+    {
+        "id": "a870f25968bcf669",
+        "topic": "cat / more",
+        "expanded": true,
+        "parentid": "a8386722dbdaad44"
+    },
+    {
+        "id": "a870f7797472052a",
+        "topic": "VI Basics",
+        "expanded": true,
+        "parentid": "a8386722dbdaad44"
+    },
+    {
+        "id": "a8385b13260e874c",
+        "topic": "The Browser",
+        "expanded": true,
+        "parentid": "jsmind-node-a8384d00581eaa3b"
+    },
+    {
+        "id": "a838646892f223a1",
+        "topic": "Markup / HTML",
+        "expanded": true,
+        "parentid": "jsmind-node-a8384d00581eaa3b"
+    },
+    {
+        "id": "a838661fbb5584bf",
+        "topic": "CSS / Stylesheet",
+        "expanded": true,
+        "parentid": "jsmind-node-a8384d00581eaa3b"
+    },
+    {
+        "id": "a8384e1b423cdc81",
+        "topic": "NodeJS 101",
+        "expanded": false,
+        "parentid": "jsmind-node-a8384d005af3dcb9",
+        "direction": "right"
+    },
+    {
+        "id": "a8386a71e1159f03",
+        "topic": "Setup (NVM)",
+        "expanded": true,
+        "parentid": "a8384e1b423cdc81"
+    },
+    {
+        "id": "a8386ddae3cd50f2",
+        "topic": "Hello World",
+        "expanded": true,
+        "parentid": "a8384e1b423cdc81"
+    },
+    {
+        "id": "a838704410685e85",
+        "topic": "Static Web Server",
+        "expanded": true,
+        "parentid": "a8384e1b423cdc81"
+    },
+    {
+        "id": "a839733087a6548d",
+        "topic": "Express 101",
+        "expanded": true,
+        "parentid": "a8384e1b423cdc81"
+    },
+    {
+        "id": "a83850d9383fa744",
+        "topic": "DOM / jQuery",
+        "expanded": true,
+        "parentid": "jsmind-node-a8384d005af3dcb9",
+        "direction": "right"
+    },
+    {
+        "id": "a8385694c42fe83c",
+        "topic": "React",
+        "expanded": true,
+        "parentid": "jsmind-node-a8384d005af3dcb9",
+        "direction": "right"
+    }
+]

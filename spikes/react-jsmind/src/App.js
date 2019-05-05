@@ -15,7 +15,7 @@ const App = () => {
 
     return (
         <div className="App">
-            <View height={450}>
+            <View height={650}>
                 {size => (
                     <JsMind {...size}
                         name="map1"
@@ -33,11 +33,12 @@ const App = () => {
             
             <hr />
 
-            <View height={300}>
+            <View height={300} width={300}>
                 {size => (
                     <JsMind {...size}
                         name="map2"
                         theme="primary"
+                        zoom={0.5}
                         data={data}
                         editable={true}
                         onChange={(data) => {
