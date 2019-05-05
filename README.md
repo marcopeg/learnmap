@@ -7,3 +7,6 @@ Learning tool based on mindmaps
 WebDev course notes:
 https://discovery.mysocial.io/#/xi61o
 
+
+Mindmap:
+https://www.mindmeister.com/1262148330#
