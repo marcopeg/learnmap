@@ -2,8 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { createState } from './app/state'
 import './app/locale'
-
-const createHistory = require("history").createBrowserHistory
+const createHistory = require('history').createBrowserHistory
 
 const boot = props => {
     const renderApp = () => {
