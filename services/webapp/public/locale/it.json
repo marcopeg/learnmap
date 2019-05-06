@@ -1,0 +1,10 @@
+{
+  "pages.HomePage.title": "Traccia Temperature",
+  "pages.HomePage.subtitle": "qualcosa in italiano",
+  "pages.HomePage.login": "login",
+  "pages.HomePage.signup": "REGISTRATI",
+  "pages.HomePage.enter": "VAI ALL'APP",
+  "pages.LoginPage.title": ".: Entra",
+  "pages.LoginPage.emailPlaceholder": "tua@mail.com",
+  "pages.LoginPage.passwordPlaceholder": "scrivi la tua password"
+}
