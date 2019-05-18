@@ -37,7 +37,8 @@ unprod:
 ###
 
 heroku-deploy:
-	(cd services/webapp && yarn heroku:deploy)
+	git subtree push --prefix services/webapp heroku master
+	(cd services/webapp && yarn heroku:logs)
 
 heroku-logs:
 	(cd services/webapp && yarn heroku:logs)
