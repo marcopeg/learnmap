@@ -13,53 +13,33 @@
 # if we touch the `package.json` file. Which doesn't happen so often.
 #
 
-FROM node:10.14-alpine AS builder
-
-# Pass arguments down to the webpack builder to substitute variables
-ARG REACT_APP_NAME
+FROM node:12.2-alpine AS builder
 
 # NPM Install for building
 WORKDIR /usr/src/app-build
-ADD package.json /usr/src/app-build/package.json
-RUN yarn install --production=false
-
-# NPM Install for production
-WORKDIR /usr/src/app-run
-ADD package.json /usr/src/app-run/package.json
-RUN cp /usr/src/app-build/yarn.lock ./
-RUN yarn install --production=true
+ADD package.json /usr/src/app-build
+ADD yarn.lock /usr/src/app-build
+RUN yarn install
 
 # Copy source files:
 WORKDIR /usr/src/app-build
-ADD index.js /usr/src/app-build
-ADD .babelrc /usr/src/app-build
-ADD .env /usr/src/app-build/.env
-ADD .eslintrc /usr/src/app-build/.eslintrc
-ADD .eslintignore /usr/src/app-build/.eslintignore
+ADD .env /usr/src/app-build
+ADD jsconfig.json /usr/src/app-build
 ADD webpack.config.extend.js /usr/src/app-build
-ADD webpackDevServer.config.extend.js /usr/src/app-build
-ADD react-intl-pack.js /usr/src/app-build
-
-# Fix weird stuff with dependencies, can't explain why this is needed now
-WORKDIR /usr/src/app-build
-RUN yarn add react-loadable
-
-# Fix a weird building problem related to CRA
-# https://github.com/facebook/create-react-app/issues/6336
-WORKDIR /usr/src/app-build
-RUN yarn add terser@3.14.1
-
-# Build backend
-WORKDIR /usr/src/app-build
 ADD ssr /usr/src/app-build/ssr
-RUN npm run build:ssr
-
-# Build frontend
-WORKDIR /usr/src/app-build
 ADD src /usr/src/app-build/src
-RUN npm run build:src
 ADD public /usr/src/app-build/public
-RUN npm run build
+ADD index.js /usr/src/app-build
+
+# Build:
+WORKDIR /usr/src/app-build
+RUN yarn build
+RUN yarn build:node
+
+# Remove dev dependencies
+RUN npm prune --production
+
+
 
 
 #
@@ -72,36 +52,19 @@ RUN npm run build
 # the idea is to keep this image as small as possible.
 #
 
-FROM node:10.14-alpine AS runner
+FROM node:12.2-alpine AS runner
 
-# Copy assets for build:
+# Copy project specific assets:
 WORKDIR /usr/src/app
-COPY --from=builder /usr/src/app-run/node_modules ./node_modules
-COPY --from=builder /usr/src/app-build/build ./build
-COPY --from=builder /usr/src/app-build/build-src ./build-src
-COPY --from=builder /usr/src/app-build/build-ssr ./build-ssr
+COPY --from=builder /usr/src/app-build/node_modules ./node_modules
+COPY --from=builder /usr/src/app-build/node_build ./node_build
 ADD package.json /usr/src/app
 ADD index.js /usr/src/app
-
-
-
-
-
-#
-# Startup Info
-# ==========================================
-#
+ADD .env /usr/src/app
+ADD pages /usr/src/app/pages
 
 # Default environment configuration:
-ENV NODE_ENV production
-ENV LOG_LEVEL error
-ENV GRAPHQL_MOUNT_POINT /api
-ENV REACT_SSR no
-ENV REACT_SSR_ENABLED no
-ENV REACT_SSR_USE_CACHE no
-ENV PG_PORT 5432
-ENV PG_DATABASE pigtail
-ENV PG_MAX_CONN_ATTEMPTS 10
-ENV PG_CONN_ATTEMPTS_DELAY 2500
+EXPOSE 8080
+ENV NODE_ENV=production
 
-ENTRYPOINT [ "node", "index.js" ]
+CMD node index.js

@@ -2,56 +2,53 @@
 # Simple interface to run Docker!
 #
 
-
 # Running container's name
-organization?=pigtail
-name?=barn
-version:= $(shell node -p "require('../../pigtail.json').version")
+name?=forrest-starter-universal
 
 # Docker image tag name
-tag?=${organization}/${name}
+tag?=${name}
 
-# Mish
-loglevel?=info
-host?=172.16.135.157
-port?=5050
-pgport?=5053
-token?=xxx
+# Docker Development Options
+cmd?=build
+api?=8080
+app?=3000
+
+
+
+###
+### Use Docker for Production
+### =========================
+###
 
 # Build the project using cache
 image:
-	docker build -t ${tag} -t ${tag}:${version} .
-	
+	docker build -t ${tag} .
+
 # Spins up a container from the latest available image
 # this is useful to test locally
-run:
+prod: image
 	docker run \
 		--rm \
 		--name ${name} \
-		-p ${port}:8080 \
-		-e PG_HOST=${host} \
-		-e PG_PORT=${pgport} \
-		-e PG_DATABASE=postgres \
-		-e PG_USERNAME=postgres \
-		-e PG_PASSWORD=postgres \
-		-e LOG_LEVEL=${loglevel} \
-		-e API_DEFAULT_TOKEN=${token} \
+		-p 8080:8080 \
 		${name}
 
+# Like start, but in background
+# classic way to launch it on a server
+boot: image
+	docker run \
+		-d \
+		--name ${name} \
+		-p 8080:8080 \
+		${name}
+
+# stop the running container
 stop:
 	docker stop ${name}
 
 remove:
 	docker rm ${name}
 
-# Like start, but in background
-# classic way to launch it on a server
-boot:
-	docker run \
-		-d \
-		--name ${name} \
-		-p 8080:8080 \
-		${name}
 
 down: stop remove
 
@@ -62,10 +59,46 @@ ssh:
 		${name} \
 		/bin/sh
 
-publish:
-	docker tag ${tag}:${version} ${tag}:${version}
-	docker tag ${tag}:${version} ${tag}:latest
-	docker push ${tag}:${version}
-	docker push ${tag}:latest
 
-release: image publish
+
+
+###
+# Use Docker for Development
+# ==========================
+#
+#     # Start the application on default ports:
+#     make dev
+#
+#     # Start the application on custom ports:
+#     make dev api=9999 app=3001
+#
+
+dev:
+	docker run \
+		-it \
+		--rm \
+		--name "${name}-dev" \
+		-v $(shell pwd)/.docker-volumes/node_modules:/usr/src/app/node_modules:cached \
+		-v $(shell pwd)/.docker-volumes/node_build:/usr/src/app/node_build:cached \
+		-v $(shell pwd)/package.json:/usr/src/app/package.json:delegated \
+		-v $(shell pwd)/yarn.lock:/usr/src/app/yarn.lock:delegated \
+		-v $(shell pwd)/jsconfig.json:/usr/src/app/jsconfig.json:delegated \
+		-v $(shell pwd)/src:/usr/src/app/src:delegated \
+		-v $(shell pwd)/ssr:/usr/src/app/ssr:delegated \
+		-v $(shell pwd)/public:/usr/src/app/public:delegated \
+		-v $(shell pwd)/index.js:/usr/src/app/index.js:delegated \
+		-v $(shell pwd)/.env:/usr/src/app/.env:delegated \
+		-v $(shell pwd)/pages:/usr/src/app/pages:delegated \
+		-p ${api}:8080 \
+		-p ${app}:3000 \
+		-w /usr/src/app \
+		node:12.2 \
+		yarn start:dev
+
+###
+# Run any npm script over a running development instance
+#
+#     make exec cmd=build
+#
+exec:
+	docker exec -it "${name}-dev" yarn ${cmd}

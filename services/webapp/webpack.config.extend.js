@@ -14,11 +14,10 @@
  */
 
 const rewireEslint = require('react-scripts-rewired/lib/rewire-eslint')
-const { webpackReactLoadable } = require('@marcopeg/react-ssr/lib/webpack-react-loadable')
+const { webpackReactLoadable } = require('@forrestjs/core/lib/webpack-react-loadable')
 
 module.exports = config => {
     config = webpackReactLoadable(config)
     config = rewireEslint(config)
     return config
 }
-
