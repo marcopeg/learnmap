@@ -15,6 +15,10 @@
 
 FROM node:12.2-alpine AS builder
 
+# Pass arguments down to the webpack builder to substitute variables
+ARG REACT_APP_ID
+ARG REACT_APP_NAME
+
 # NPM Install for building
 WORKDIR /usr/src/app-build
 ADD package.json /usr/src/app-build

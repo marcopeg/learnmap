@@ -1,0 +1,20 @@
+version: '2.1'
+services:
+    webapp:
+        image: node:12.2
+        ports:
+            - ${WEBAPP_API_PORT:-8080}:8080
+            - ${WEBAPP_CRA_PORT:-3000}:3000
+        volumes:
+            - ${HUMBLE_DATA}/webapp/node_modules:/usr/src/app/node_modules:cached
+            - ${HUMBLE_DATA}/webapp/node_build:/usr/src/app/node_build:cached
+            - ./services/webapp/package.json:/usr/src/app/package.json:delegated
+            - ./services/webapp/yarn.lock:/usr/src/app/yarn.lock:delegated
+            - ./services/webapp/jsconfig.json:/usr/src/app/jsconfig.json:delegated
+            - ./services/webapp/src:/usr/src/app/src:delegated
+            - ./services/webapp/ssr:/usr/src/app/ssr:delegated
+            - ./services/webapp/public:/usr/src/app/public:delegated
+            - ./services/webapp/index.js:/usr/src/app/index.js:delegated
+            - ./services/webapp/.env:/usr/src/app/.env:delegated
+        working_dir: /usr/src/app
+        entrypoint: [ "yarn", "start:dev" ]

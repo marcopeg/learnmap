@@ -24,8 +24,8 @@
  */
 
 export const initialState = {
-    id: process.env.REACT_APP_ID || 'react-ssr',
-    name: process.env.REACT_APP_NAME || 'React SSR',
+    id: process.env.REACT_APP_ID || 'learnmap',
+    name: process.env.REACT_APP_NAME || 'LearnMap',
 }
 
 /**

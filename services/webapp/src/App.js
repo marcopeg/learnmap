@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet'
 
 const mapState = ({ app, locale }) => ({
     name: app.name,
-    locale: locale.locale.split('_')[0],
+    locale: locale.html,
 })
 
 const App = ({ name, locale }) => (
