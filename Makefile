@@ -29,3 +29,15 @@ prod:
 	
 unprod:
 	HUMBLE_ENV=prod humble down
+
+
+
+###
+### Heroku
+###
+
+heroku-deploy:
+	(cd services/webapp && yarn heroku:deploy)
+
+heroku-logs:
+	(cd services/webapp && yarn heroku:logs)

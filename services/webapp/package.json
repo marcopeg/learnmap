@@ -30,8 +30,8 @@
     "styleguide:build": "./node_modules/.bin/styleguidist build",
     "----- // HEROKU UTILITIES // -----": "",
     "heroku-postbuild": "npm run build",
-    "heroku:deploy": "git subtree push --subtree services/webapp heroku master",
-    "heroku:logs": "heroku logs --tail"
+    "heroku:deploy": "git subtree push --prefix services/webapp heroku master",
+    "heroku:logs": "heroku logs --tail --app learnmap2"
   },
   "eslintConfig": {
     "extends": [
