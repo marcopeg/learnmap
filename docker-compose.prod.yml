@@ -10,7 +10,7 @@ services:
             POSTGRES_PASSWORD: ${PG_PASSWORD}
             POSTGRES_DB: ${PG_DATABASE}
         volumes:
-            - ${HUMBLE_DATA}/pg:/var/lib/postgresql/data
+            - ${HUMBLE_DATA}/pg-prod:/var/lib/postgresql/data
             - ${HUMBLE_BACKUP}:/backup
         restart: always
 
@@ -24,11 +24,14 @@ services:
         environment:
             REACT_APP_ID: ${REACT_APP_ID}
             REACT_APP_NAME: ${REACT_APP_NAME}
-            POSTGRES_HOST: ${PG_HOST}
-            POSTGRES_PORT: ${PG_PORT}
-            POSTGRES_USER: ${PG_USERNAME}
-            POSTGRES_PASSWORD: ${PG_PASSWORD}
-            POSTGRES_DB: ${PG_DATABASE}
+            PG_HOST: ${PG_HOST}
+            PG_PORT: ${PG_PORT}
+            PG_USERNAME: ${PG_USERNAME}
+            PG_PASSWORD: ${PG_PASSWORD}
+            PG_DATABASE: ${PG_DATABASE}
+            JWT_SECRET: ${JWT_SECRET}
+            JWT_DURATION: ${JWT_DURATION}
+            BCRYPT_ROUNDS: ${BCRYPT_ROUNDS}
         ports:
             - ${HUMBLE_PORT}:8080
         restart: always

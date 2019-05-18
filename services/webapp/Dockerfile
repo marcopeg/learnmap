@@ -65,7 +65,6 @@ COPY --from=builder /usr/src/app-build/node_build ./node_build
 ADD package.json /usr/src/app
 ADD index.js /usr/src/app
 ADD .env /usr/src/app
-ADD pages /usr/src/app/pages
 
 # Default environment configuration:
 EXPOSE 8080

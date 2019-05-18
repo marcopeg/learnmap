@@ -56,11 +56,15 @@
     "not op_mini all"
   ],
   "dependencies": {
-    "@forrestjs/package-universal": "^2.4.3",
+    "@forrestjs/package-universal": "^2.6.0",
+    "@forrestjs/service-postgres": "^2.6.0",
+    "@forrestjs/service-jwt": "^2.6.0",
+    "@forrestjs/service-hash": "^2.6.0",
     "es6-promise": "^4.2.6",
+    "graphql-iso-date": "^3.6.1",
     "remarkable": "^1.7.1"
   },
   "devDependencies": {
-    "@forrestjs/package-universal-dev": "^2.4.1"
+    "@forrestjs/package-universal-dev": "^2.6.0"
   }
 }
