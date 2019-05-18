@@ -1,5 +1,19 @@
 version: '2.1'
 services:
+
+    postgres:
+        image: postgres:11
+        ports:
+            - ${PG_PORT}:5432
+        environment:
+            POSTGRES_USER: ${PG_USERNAME}
+            POSTGRES_PASSWORD: ${PG_PASSWORD}
+            POSTGRES_DB: ${PG_DATABASE}
+        volumes:
+            - ${HUMBLE_DATA}/pg:/var/lib/postgresql/data
+            - ${HUMBLE_BACKUP}:/backup
+        restart: always
+
     webapp:
         build:
             context: ./services/webapp
@@ -10,6 +24,11 @@ services:
         environment:
             REACT_APP_ID: ${REACT_APP_ID}
             REACT_APP_NAME: ${REACT_APP_NAME}
+            POSTGRES_HOST: ${PG_HOST}
+            POSTGRES_PORT: ${PG_PORT}
+            POSTGRES_USER: ${PG_USERNAME}
+            POSTGRES_PASSWORD: ${PG_PASSWORD}
+            POSTGRES_DB: ${PG_DATABASE}
         ports:
             - ${HUMBLE_PORT}:8080
         restart: always
