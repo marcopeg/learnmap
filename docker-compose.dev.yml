@@ -10,7 +10,7 @@ services:
             POSTGRES_PASSWORD: ${PG_PASSWORD:-postgres}
             POSTGRES_DB: ${PG_DATABASE:-postgres}
         volumes:
-            - ${HUMBLE_DATA}/pg:/var/lib/postgresql/data
+            - ${HUMBLE_DATA}/pg-dev:/var/lib/postgresql/data
             - ${HUMBLE_BACKUP}:/backup
         restart: always
 

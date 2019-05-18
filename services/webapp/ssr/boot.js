@@ -17,8 +17,8 @@ const services = [
     require('@forrestjs/service-hash'),
     require('@forrestjs/service-postgres'),
     require('@forrestjs/service-express'),
-    require('@forrestjs/service-express-cookies'),
     require('@forrestjs/service-express-graphql'),
+    require('@forrestjs/service-express-cookies'),
     require('@forrestjs/service-express-ssr'),
     require('@forrestjs/feature-locale'),
 ]
@@ -40,6 +40,11 @@ registerAction({
         }]
 
         settings.express = {
+            graphql: {
+                testIsEnabled: true,
+                testToken: 'fooo',
+            },
+
             ssr: {
                 // multilanguage cache policy
                 shouldCache: (req) => (req.query.locale === undefined),

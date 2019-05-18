@@ -27,7 +27,11 @@
     "reset": "npm run clean && npm run clean:npm",
     "----- // STYLEGUIDIST UTILITIES // -----": "",
     "styleguide": "./node_modules/.bin/styleguidist server",
-    "styleguide:build": "./node_modules/.bin/styleguidist build"
+    "styleguide:build": "./node_modules/.bin/styleguidist build",
+    "----- // HEROKU UTILITIES // -----": "",
+    "heroku-postbuild": "npm run build",
+    "heroku:deploy": "git subtree push --subtree services/webapp heroku master",
+    "heroku:logs": "heroku logs --tail"
   },
   "eslintConfig": {
     "extends": [
@@ -56,15 +60,15 @@
     "not op_mini all"
   ],
   "dependencies": {
-    "@forrestjs/package-universal": "^2.6.0",
-    "@forrestjs/service-postgres": "^2.6.0",
-    "@forrestjs/service-jwt": "^2.6.0",
-    "@forrestjs/service-hash": "^2.6.0",
+    "@forrestjs/package-universal": "^2.6.1",
+    "@forrestjs/service-postgres": "^2.6.1",
+    "@forrestjs/service-jwt": "^2.6.1",
+    "@forrestjs/service-hash": "^2.6.1",
     "es6-promise": "^4.2.6",
     "graphql-iso-date": "^3.6.1",
     "remarkable": "^1.7.1"
   },
   "devDependencies": {
-    "@forrestjs/package-universal-dev": "^2.6.0"
+    "@forrestjs/package-universal-dev": "^2.6.1"
   }
 }
