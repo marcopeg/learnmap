@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Helmet } from 'react-helmet'
+import JsMind from 'components/js-mind'
 
 const mapState = ({ app, locale }) => ({
     name: app.name,
@@ -16,6 +17,15 @@ const App = ({ name, locale }) => (
         </Helmet>
         <div className="App">
             {name} - {locale}
+            <hr />
+            <JsMind
+                name={'Map1'}
+                width={600}
+                height={600}
+                onChange={(data) => {
+                    console.log(data)
+                }}
+            />
         </div>
     </>
 )
