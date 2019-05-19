@@ -38,7 +38,7 @@ unprod:
 
 heroku-deploy:
 	git subtree push --prefix services/webapp heroku master
-	(cd services/webapp && yarn heroku:logs)
+	heroku logs --tail --app learnmap2
 
 heroku-logs:
-	(cd services/webapp && yarn heroku:logs)
+	heroku logs --tail --app learnmap2
