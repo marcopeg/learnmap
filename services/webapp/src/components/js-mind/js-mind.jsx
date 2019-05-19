@@ -140,6 +140,7 @@ class JsMind extends React.Component {
             width: this.props.width,
             height: this.props.height,
             textAlign: 'left',
+            ...this.props.style,
         }
 
         return (
@@ -165,6 +166,7 @@ JsMind.propTypes = {
     format: PropTypes.string,
     meta: PropTypes.object,
     name: PropTypes.string.isRequired,
+    style: PropTypes.object,
 }
 
 JsMind.defaultProps = {
@@ -179,6 +181,7 @@ JsMind.defaultProps = {
     data: [],
     editable: true,
     theme: 'primary',
+    style: {},
 }
 
 export default JsMind

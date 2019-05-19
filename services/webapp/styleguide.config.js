@@ -10,6 +10,7 @@ module.exports = {
             description: 'Application level dumb components',
             components: [
                 'src/components/Markdown/Markdown.js',
+                'src/components/js-mind/js-mind.jsx',
             ],
         },
         // {
@@ -60,9 +61,47 @@ module.exports = {
      * You may need to add more of those, but it's likely that you will
      * prefer to go the `styled-components` way.
      */
-    require: [
-        path.join(__dirname, 'src/index.css'),
-    ],
+    // require: [
+    //     path.join(__dirname, 'src/index.css'),
+    // ],
+
+    /**
+     * Inject custom CSS and Javascript from the `/public` directory.
+     * This is really useful in case you implement third parties that
+     * are served as static files.
+     */
+    assetsDir: path.join(__dirname, 'public'),
+    template: ({ css = [], js = [], title, container, publicPath }) => {
+        const MiniHtmlWebpackPlugin = require('mini-html-webpack-plugin')
+        const { generateCSSReferences, generateJSReferences } = MiniHtmlWebpackPlugin
+
+        const useCss = [
+            'jsmind/style/jsmind.css',
+            ...css,
+        ]
+
+        const useJs = [
+            'jsmind/js/jsmind.js',
+            'jsmind/js/jsmind.draggable.js',
+            ...js,
+        ]
+
+        return (
+            `
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>${title}</title>
+        ${generateCSSReferences(useCss, publicPath)}
+    </head>
+    <body>
+        <div id="${container}"></div>
+        ${generateJSReferences(useJs, publicPath)}
+    </body>
+</html>`
+        )
+    },
 
     /**
      * CRA provides a fully functioning webpack config that is good for
