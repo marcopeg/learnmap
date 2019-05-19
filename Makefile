@@ -10,8 +10,14 @@ dev:
 undev:
 	HUMBLE_ENV=dev humble down
 
+dev-ssh:
+	HUMBLE_ENV=dev humble exec webapp /bin/sh
+
 dev-build:
 	HUMBLE_ENV=dev humble exec webapp yarn build
+
+dev-locale:
+	HUMBLE_ENV=dev humble exec webapp yarn build:locale
 
 dev-pg:
 	HUMBLE_ENV=dev humble up -d postgres

@@ -1,9 +1,4 @@
 import createSSRState from '@forrestjs/core/lib/create-ssr-state'
-import app from './app.reducer'
-
-const reducers = {
-    app,
-}
 
 const features = [
     require('@forrestjs/feature-storage/client'),
@@ -11,4 +6,9 @@ const features = [
     require('@forrestjs/feature-locale/client'),
 ]
 
-export const createState = createSSRState(reducers, features)
+const app = () => ({
+    id: process.env.REACT_APP_ID || 'learnmap',
+    name: process.env.REACT_APP_NAME || 'LearnMap',
+})
+
+export const createState = createSSRState({ app }, features)
