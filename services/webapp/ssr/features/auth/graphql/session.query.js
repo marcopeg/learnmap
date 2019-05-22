@@ -6,7 +6,7 @@ import {
 
 import { GraphQLDateTime } from 'graphql-iso-date'
 
-import { createHook } from '@marcopeg/hooks'
+import { createHook } from '@forrestjs/hooks'
 import { getSession } from '../lib/session'
 import { AUTH_SESSION_QUERY } from '../hooks'
 

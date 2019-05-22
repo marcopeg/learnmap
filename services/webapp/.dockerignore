@@ -1,19 +1,25 @@
-# gitignored folders
-node_modules
-node_build
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# other stuff
-Makefile
-README.md
-SUMMARY.md
-LICENCE.md
-package-lock.json
-_book
-docs
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
 
-# local environment files
+# testing & artifacts
+/coverage
+/node_build
+/build
+/.docker-volumes
+
+# report
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# misc
+.DS_Store
 .env.local
 .env.development.local
-.env.production.local
 .env.test.local
-
+.env.production.local
+_book

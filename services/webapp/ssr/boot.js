@@ -1,5 +1,5 @@
-import { registerAction, SETTINGS, FINISH } from '@marcopeg/hooks'
-import { createHookApp, logBoot } from '@marcopeg/hooks'
+import { registerAction, SETTINGS, FINISH } from '@forrestjs/hooks'
+import { createHookApp, logBoot } from '@forrestjs/hooks'
 import * as config from '@marcopeg/utils/lib/config'
 
 // polyfill "fetch" in NodeJS

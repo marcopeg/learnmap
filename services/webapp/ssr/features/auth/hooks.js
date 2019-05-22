@@ -1,4 +1,4 @@
-import { FEATURE } from '@marcopeg/hooks'
+import { FEATURE } from '@forrestjs/hooks'
 
 export const AUTH_AFTER_LOGIN = `${FEATURE} auth/afterLogin`
 export const AUTH_BEFORE_LOGOUT = `${FEATURE} auth/beforeLogout`

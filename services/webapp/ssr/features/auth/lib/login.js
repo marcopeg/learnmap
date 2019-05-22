@@ -1,6 +1,6 @@
 import { getModel } from '@forrestjs/service-postgres'
 import jwtService from '@forrestjs/service-jwt'
-import { createHook } from '@marcopeg/hooks'
+import { createHook } from '@forrestjs/hooks'
 import { AUTH_AFTER_LOGIN, AUTH_BEFORE_LOGOUT } from '../hooks'
 
 const COOKIE_NAME = 'auth::login'

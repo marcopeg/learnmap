@@ -58,16 +58,16 @@
     "not op_mini all"
   ],
   "dependencies": {
-    "@forrestjs/package-universal": "^2.6.1",
-    "@forrestjs/service-hash": "^2.6.1",
-    "@forrestjs/service-jwt": "^2.6.1",
-    "@forrestjs/service-postgres": "^2.6.1",
+    "@forrestjs/package-universal": "^2.8.2",
+    "@forrestjs/service-hash": "^2.8.2",
+    "@forrestjs/service-jwt": "^2.8.2",
+    "@forrestjs/service-postgres": "^2.8.2",
     "es6-promise": "^4.2.6",
     "graphql-iso-date": "^3.6.1",
     "remarkable": "^1.7.1"
   },
   "devDependencies": {
-    "@forrestjs/package-universal-dev": "^2.6.1",
+    "@forrestjs/package-universal-dev": "^2.8.2",
     "mini-html-webpack-plugin": "^1.0.0"
   }
 }

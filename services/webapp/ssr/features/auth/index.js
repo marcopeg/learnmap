@@ -1,4 +1,4 @@
-import { FEATURE } from '@marcopeg/hooks'
+import { FEATURE } from '@forrestjs/hooks'
 import * as account from './account.model'
 import sessionQuery from './graphql/session.query'
 import sessionMutation from './graphql/session.mutation'
